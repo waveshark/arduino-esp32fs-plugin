@@ -219,7 +219,14 @@ public class ESP32FS implements Tool {
       return;
     }
 
+    String boardId = BaseNoGui.getTargetBoard().getId();
+    String customPartitionScheme = PreferencesData.get("custom_PartitionScheme");
+    if (customPartitionScheme != null && customPartitionScheme.startsWith(boardId)) {
+      partitions = customPartitionScheme.substring(boardId.length() + 1);
+    }
+
     File partitionsFile = new File(platform.getFolder() + "/tools/partitions", partitions + ".csv");
+    System.out.println("Using partition file : " + partitionsFile);
     if (!partitionsFile.exists() || !partitionsFile.isFile()) {
       System.err.println();
       editor.statusError("SPIFFS Error: partitions file " + partitions + ".csv not found!");

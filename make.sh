@@ -19,7 +19,7 @@ echo "lib_path: $lib_path"
 set -e
 
 mkdir -p bin
-javac -target 1.8 -cp "$pde_path:$core_path:$lib_path" \
+javac -source 1.8 -target 1.8 -cp "$pde_path:$core_path:$lib_path" \
       -d bin src/ESP32FS.java
 
 pushd bin
